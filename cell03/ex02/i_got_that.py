@@ -1,4 +1,4 @@
 #!/usr/bin/env python3
-s = input('What uou gotta say ? : ')
-while(s != 'STOP'):
-    s = input('something else? : ')
+user_input = input("What you gotta say? : ")
+while (user_input != "STOP"):
+    user_input = input("I got that! Anything else? : ")
