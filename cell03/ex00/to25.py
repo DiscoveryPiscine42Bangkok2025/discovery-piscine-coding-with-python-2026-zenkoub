@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 user_input = int(input("Enter a number less than 25 :\n"))
-if user_input > 25:
-   print("Error")
+if user_input < 25:
+    for i in range(int(user_input), 26):
+        print(f"Inside the loop, my variable is {i}")
 else:
-   for i in range(int(user_input), 26):
-       print(f"Inside the loop, my variable is {i}")
+    print("Error")
