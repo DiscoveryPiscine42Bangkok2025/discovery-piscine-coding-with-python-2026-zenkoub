@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-def main():
-    number = int(input("Enter a number : "))
-    for i in range(10):
-        print(f"{i} x {number} = {i * number}")
-    
-if __name__ == "__main__":
-    main()
+user_input = int(input("Enter a number\n"))
+for i in range(1, 10):
+    multiplication = user_input * i
+    print(f"{i} x {user_input} = {multiplication}")
