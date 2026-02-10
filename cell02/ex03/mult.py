@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 first_num = int(input("Enter first number:\n"))
 second_num = int(input("Enter second number:\n"))
 multiplication = first_num * second_num
