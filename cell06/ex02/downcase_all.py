@@ -2,6 +2,7 @@
 import sys
 def downcase_it(user_input):
     return user_input.lower()
+
 if len(sys.argv) == 1:
     print("none")
 else:
