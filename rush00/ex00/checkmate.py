@@ -21,31 +21,31 @@ def crerate_board(board):
             board_spl.append(list(i))
     return board_spl
 
-def block(board, row1, col1, row2, col2):
-    if row1 == row2:
-        real_row = 0
+def block(board, row1, col1, rowK, colK):
+    if row1 == rowK:
+        direct_row = 0
     else:
-        if row2 > row1:
-            real_row = 1
+        if rowK > row1:
+            direct_row = 1
         else:
-            real_row = -1
+            direct_row = -1
 
-    if col1 == col2:
-        real_col = 0
+    if col1 == colK:
+        direct_col = 0
     else:
-        if col2 > col1:
-            real_col = 1
+        if colK > col1:
+            direct_col = 1
         else:
-            real_col = -1
+            direct_col = -1
     
-    row = row1 + real_row
-    col = col1 + real_col
+    row = row1 + direct_row
+    col = col1 + direct_col
 
-    while (row, col) != (row2, col2):
+    while (row, col) != (rowK, colK):
         if board[row][col] in ["R","P","B","Q","K"]:
             return False
-        row += real_row
-        col += real_col
+        row += direct_row
+        col += direct_col
     return True
 
 
