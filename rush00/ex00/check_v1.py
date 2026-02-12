@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 def check_error(board):
     count_error = 0
     count_K = 0
@@ -25,9 +24,7 @@ def crerate_board(board):
 
 def checkmate(board):
     board_spl = crerate_board(board)
-    if check_error(board_spl) >= 1:
-        print("error")
-        quit()
+    
     row_r = None
     col_r = None
     row_p = None
@@ -103,7 +100,9 @@ def checkmate(board):
         sus += 1
     # print("row k:",row_k)
     # print("col k:",col_k)
-    if sus >= 1:
+    if check_error(board_spl) >= 1:
+        print("Error")
+    elif sus >= 1:
         print("Success")
     elif fail >= 1:
         print("Fail")
