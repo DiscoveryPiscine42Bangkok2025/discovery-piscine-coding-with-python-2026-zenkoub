@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 def check_error(board):
     count_error = 0
     count_K = 0
