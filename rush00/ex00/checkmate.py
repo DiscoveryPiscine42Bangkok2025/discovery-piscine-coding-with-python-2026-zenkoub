@@ -16,9 +16,37 @@ def crerate_board(board):
     board_spl = []
     rows = board.splitlines()
     for i in rows:
-        i = i.strip()
-        board_spl.append(list(i))
+        i = i.strip().replace("\\","")
+        if i != "":
+            board_spl.append(list(i))
     return board_spl
+
+def block(board, row1, col1, row2, col2):
+    if row1 == row2:
+        real_row = 0
+    else:
+        if row2 > row1:
+            real_row = 1
+        else:
+            real_row = -1
+
+    if col1 == col2:
+        real_col = 0
+    else:
+        if col2 > col1:
+            real_col = 1
+        else:
+            real_col = -1
+    
+    row = row1 + real_row
+    col = col1 + real_col
+
+    while (row, col) != (row2, col2):
+        if board[row][col] in ["R","P","B","Q","K"]:
+            return False
+        row += real_row
+        col += real_col
+    return True
 
 
 def checkmate(board):
@@ -58,21 +86,24 @@ def checkmate(board):
                     positions["k"] = (i,j)
     if have["p"] > 0:
         """pawn"""
-        if abs(positions["p"][1] - positions["k"][1]) == 1 and abs(positions["p"][0] - positions["k"][0]) == 1:
+        if abs(positions["p"][1] - positions["k"][1]) == 1 and positions["p"][0] - positions["k"][0] == 1:
             """หา p จาก เอาตำแหน่ง col_p +- cal_k ต้องได้ 1 และ row_p +- row_k ก็ต้องได้ 1 เพราะ ตำแหน่งชนะมันอยู่ ซ้ายบน ขวาบน"""
             sus += 1
     else:
         fail += 1
     if have["b"] > 0:
         """Bishop"""
-        if abs(positions["b"][0] - positions["k"][0]) == abs(positions["b"][1] - positions["k"][1]):
+        if abs(positions["b"][0] - positions["k"][0]) == abs(positions["b"][1] - positions["k"][1]) \
+            and block(board_spl, positions["b"][0], positions["b"][1], positions["k"][0], positions["k"][1]):
             """ชนะโดยแนวแทยงซ้ายขวา หาจาก row_b +- row_k เท่ากันกับ col_b - col_k เพราะว่าเวลาคิด หาก b อยู่(3,3) K อยู่ที่ (2,2) โดยคิดคือ row ลบกันเท่ากับ 1 และ col ลบกัน = 1 ดังนั้น 1=1 ก็ถูก """
             sus += 1
     else:
         fail += 1
     if have["r"] > 0:
         """rook"""
-        if positions["r"][0] == positions["k"][0] or positions["r"][1] == positions["k"][1]:
+        if ((positions["r"][0] == positions["k"][0]) or (positions["r"][1] == positions["k"][1])) \
+            and block(board_spl, positions["r"][0], positions["r"][1], positions["k"][0], positions["k"][1]):
+
             """ชนะโดย แถวแนวนอนและแถวแนวตั้ง หาจาก row_r เท่ากับ row_k หรือ col_r เท่ากับ col_k"""
             sus += 1
     else:
@@ -80,7 +111,8 @@ def checkmate(board):
     if have["q"] > 0:
         """queen"""
         if (positions["q"][0] == positions["k"][0] or positions["q"][1] == positions["k"][1] \
-            or abs(positions["q"][0] - positions["k"][0]) == abs(positions["q"][1] - positions["k"][1])):
+            or abs(positions["q"][0] - positions["k"][0]) == abs(positions["q"][1] - positions["k"][1])) \
+        and block(board_spl, positions["q"][0], positions["q"][1], positions["k"][0], positions["k"][1]):
             """ได้ทั้งแทยงและแนวตั้วแนวนอน คือ r หรือ b"""
             sus += 1
     else:
